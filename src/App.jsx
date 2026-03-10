@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 const C = { blue:"#3A6FFF", cream:"#F3F2EE", peach:"#FF785E", shade:"#d8e2ff", white:"#ffffff", dark:"#1a1a2e", mid:"#4a5568", light:"#8896b0" };
 const PAYE_BRACKETS = [[0,15600,0.105],[15600,53500,0.175],[53500,78100,0.30],[78100,180000,0.33],[180000,Infinity,0.39]];
@@ -103,6 +103,13 @@ export default function KiwiSaverEstimator() {
   const [fund,setFund] = useState("Balanced");
   const [showAssumptions,setShowAssumptions] = useState(false);
 
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < 640);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+
   const eeAfter = eeBefore==="3"?"3.5":eeBefore;
   const erAfter = erBefore==="3"?"3.5":erBefore;
   const sal = useMemo(()=>Math.max(0,parseFloat(salary)||0),[salary]);
@@ -136,7 +143,7 @@ export default function KiwiSaverEstimator() {
 
           {/* Section 1: Your Employment */}
           <SectionHeader label="Your Employment" />
-          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:16}}>
+          <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 1fr 1fr",gap:16}}>
             <SalaryInput value={salary} onChange={setSalary} />
             <Sel label="Pay Cycle" value={cycle} onChange={setCycle} options={Object.keys(CYCLES)} />
             <Sel label="Employer Approach" value={approach} onChange={setApproach} options={["Pay + Benefits","Total Remuneration"]} hint={approach==="Total Remuneration"?"Contribution deducted from earnings":"Contribution paid on top"} />
@@ -159,7 +166,7 @@ export default function KiwiSaverEstimator() {
 
           {/* Section 3: Retirement Projection */}
           <SectionHeader label="Retirement Projection" />
-          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
+          <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 1fr",gap:16}}>
             <Sel label="Your Age" value={age} onChange={setAge} options={Array.from({length:64},(_,i)=>({v:String(i+16),l:`${i+16} years old`}))} hint="Used to calculate years to age 65" />
             <Sel label="KiwiSaver Fund" value={fund} onChange={setFund} options={Object.keys(FUND_RETURNS).map(f=>({v:f,l:`${f} fund`}))} hint="Assumed net annual return used for projection" />
           </div>
