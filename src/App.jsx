@@ -167,7 +167,11 @@ export default function KiwiSaverEstimator() {
           {/* Section 3: Retirement Projection */}
           <SectionHeader label="Retirement Projection" />
           <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 1fr",gap:16}}>
-            <Sel label="Your Age" value={age} onChange={setAge} options={Array.from({length:64},(_,i)=>({v:String(i+16),l:`${i+16} years old`}))} hint="Used to calculate years to age 65" />
+            <div style={{display:"flex",flexDirection:"column",gap:4}}>
+              <label style={{fontSize:11,fontWeight:600,letterSpacing:"0.08em",textTransform:"uppercase",color:C.mid}}>Your Age</label>
+              <input type="number" min={16} max={64} value={age} onChange={e=>setAge(e.target.value)} style={{padding:"10px 12px",borderRadius:8,border:`1.5px solid ${C.shade}`,background:C.white,fontSize:14,color:C.dark,outline:"none",fontFamily:"inherit",width:"100%",boxSizing:"border-box"}} />
+              <span style={{fontSize:11,color:C.light,marginTop:2}}>Used to calculate years to age 65</span>
+            </div>
             <Sel label="KiwiSaver Fund" value={fund} onChange={setFund} options={Object.keys(FUND_RETURNS).map(f=>({v:f,l:`${f} fund`}))} hint="Assumed net annual return used for projection" />
           </div>
 
