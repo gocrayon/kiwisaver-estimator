@@ -21,7 +21,7 @@ function calcScenario(salary, approach, eeRate, erRate, period) {
   const net = gross - tax - acc - eeContrib;
   return { gross, tax, acc, eeContrib, erGross, erNet, esctRate, net, totalKS: eeContrib + erNet };
 }
-function calcFV(contrib, years, r) { if (years<=0||contrib<=0) return 0; return contrib*(Math.pow(1+r,years+1)-1)/r; }
+function calcFV(contrib, years, r) { if (years<=0||contrib<=0) return 0; return contrib*(Math.pow(1+r,years)-1)/r; }
 const nzd = (v) => new Intl.NumberFormat("en-NZ",{style:"currency",currency:"NZD",minimumFractionDigits:0,maximumFractionDigits:0}).format(v);
 const nzd2 = (v) => new Intl.NumberFormat("en-NZ",{style:"currency",currency:"NZD",minimumFractionDigits:2,maximumFractionDigits:2}).format(v);
 const pct = v => (v*100).toFixed(1)+"%";
