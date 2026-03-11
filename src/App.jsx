@@ -242,7 +242,7 @@ export default function KiwiSaverEstimator() {
           </div>
         </div>
 
-        {years>0 && (
+        {years>0 && deltaKS>0 && (
           <div style={{background:`linear-gradient(135deg, ${C.peach}22 0%, ${C.peach}08 100%)`,borderRadius:16,padding:28,marginBottom:20,border:`1.5px solid ${C.peach}44`}}>
             <div style={{display:"flex",alignItems:"flex-start",gap:20,flexWrap:"wrap"}}>
               <div style={{flex:"1 1 240px"}}>
