@@ -193,6 +193,7 @@ export default function KiwiSaverEstimator() {
                 <div style={{fontSize:11,fontWeight:600,color:C.mid,letterSpacing:"0.06em",textTransform:"uppercase",marginBottom:6}}>{m.label}</div>
                 <div style={{fontSize:24,fontWeight:700,color}}>{m.annual>0.5?"+":""}{nzd(m.annual)} /yr</div>
                 <div style={{fontSize:13,color:C.mid,marginTop:4}}>{m.percycle>0.5?"+":""}{nzd2(m.percycle)} / {cycle.toLowerCase()}</div>
+                {i===0 && <div style={{fontSize:11,color:C.light,marginTop:8,lineHeight:1.5}}>Includes ACC levy increase from 1 Apr 2026 (1.67% → 1.75%)</div>}
               </div>
             );
           })}
